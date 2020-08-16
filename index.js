@@ -1,120 +1,223 @@
-// задание 1
 
- /*  const string = "Привет! Как дела?";
+// DOM слайдер
 
- const vowels = ["у", "е", "ы", "а", "о", "э", "ё", "я", "и"];
+   const left = document.querySelector("#left");
+const right = document.querySelector("#right");
+const itemsList = document.querySelector("#items");
 
- const getVowels = stringToFilter => {
-    let extractedVowels = "";
-
-    for(let i = 0; i < stringToFilter.length; i++) {
-        const currentLetter = stringToFilter[i].toLowerCase();
-        
-        if (vowels.includes(currentLetter)) {
-            extractedVowels += currentLetter;
-        }
-     }
-      return extractedVowels
- }
-
- console.log(getVowels(string)) 
-
- // эадание 2
- const workers = [
-    {  name: 'Спанчбоб', salary: 1700 },
-    {  name: 'Винни Пух',salary: 700 },
-    {  name: 'Смурфик', salary: 1200 },
-   ];
-
-   const getWorthyWorkers = (workersArr) => {
-        const worthyWorkers = [];
-
-        workersArr.forEach(currentWorker => {
-            if(currentWorker.salary > 1000) {
-                worthyWorkers.push(currentWorker.name)
-            }
-            
-        })
-             return worthyWorkers; 
-        };
-                 console.log(getWorthyWorkers(workers)); */
-
-/* 
-         for (i = 0; i <workersArr.length; i++) {
-            const currentWorker = workersArr[i]; 
-           
-            if (currentWorker.salary > 1000) {
-                worthyWorkers.push(currentWorker.name);
-            }
- 
-        }
-
-        return worthyWorkers;
-   }
-
-  console.log(getWorthyWorkers(workers));
- */
-
-
- // задание 3
-
- /* const path = "/users/download/index.html"
-
- const isHtml = path => {
-    const requiredExt = ".html";
-    const pathExt = path.slice(-5);
-
-    return  pathExt == requiredExt 
-   
- }
-
- console.log(isHtml(path));
- */
- // задание 4
-
- /* const mixedArray = [3,13,74,14,66,15,22,4];
-
-const isEven = num => {
-    return num % 2 == 0;
-}
-
-const filterArray = (arrayToFilter, filterFn) => {
- 
-    const filteredArray = [];
-
-    arrayToFilter.forEach(num => {
-        if (filterFn(num)) {
-            filteredArray.push(num)
-        }
-    })
-
-    return filteredArray; 
-}
-
-console.log(filterArray(mixedArray, isEven)); */
-
-
-
-// DOM
-
-const leftBtn = document.querySelector("#left");
-const rightBtn = document.querySelector("#right");
-const items = document.querySelector("#items");
-
-let currentRight = 0
-
-rightBtn.addEventListener("click", e => {
+const loop = (direction, e) => {
     e.preventDefault();
 
-    currentRight += 100;
+    if (direction == "right"){
+        itemsList.appendChild(itemsList.firstElementChild);
+    } else {
+        itemsList.insertBefore(itemsList.lastElementChild, items.firstElementChild);
+    }
+}
 
-    items.style.right = `${currentRight}px`;
-});
 
+right.addEventListener("click", e => {
+   loop("right", e);
 
-    leftBtn.addEventListener("click", e => {
     
-});
+   
+})
 
+left.addEventListener("click", e => { 
+    loop("left", e);
+
+
+
+
+}) 
+     
+   
 
  
+
+
+
+
+
+
+
+/* const computedStyles = window.getComputedStyle(itemsList);
+const items = document.querySelectorAll(".item");
+ */
+
+
+
+
+
+
+/* const minRight = 0;
+const itemWidth = getComputedStyle(items[0]).width;
+const step = parseInt(itemWidth);
+const presShownItems = 300 / step;
+const maxRight = (items.length - presShownItems) * 150 ;
+
+let currentRight = 0;
+
+itemsList.style.right = currentRight;
+
+right.addEventListener("click", e => {
+    e.preventDefault();
+
+    if (currentRight < maxRight) {
+        currentRight += step ;
+        itemsList.style.right = `${currentRight}px`;
+    }
+})
+
+left.addEventListener("click", e => { 
+    e.preventDefault();
+    
+    if (currentRight > minRight) {
+        currentRight -= step ;
+        itemsList.style.right = `${currentRight}px`;
+    }
+}) */
+   
+
+
+
+ /* rightBtn.addEventListener("click", e => {
+    e.preventDefault();
+
+    let currentRight = parseInt(computedStyles.right) 
+
+    if (currentRight < 500){
+        currentRight += 100;
+        items.style.right = `${currentRight + 100}px`;
+    }
+   
+});
+
+
+    leftBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+       let currentRight = parseInt(computedStyles.right); 
+
+       if (currentRight > 0) {
+           items.style.right = `${currentRight - 100}px`;
+       }
+    
+});
+  
+ */
+
+
+  // Модальное окно
+
+
+
+  const openButton = document.querySelector("#openOverlay");
+ const body = document.body;
+ const successModal = createModal("The message has been sent");
+
+ openButton.addEventListener("click", e => {
+     body.appendChild(successModal);
+     });
+
+ function createModal(content) {   
+      const overlayElement = document.createElement("div");
+ overlayElement.classList.add("overlay");
+
+ overlayElement.addEventListener("click", e => {
+   if (!e.target.classList.contains("content")) {
+       closeElement.click();
+   }
+   
+    
+ })
+
+ const containerElement = document.createElement("div");
+ containerElement.classList.add("modal-container");
+
+ const contentElement = document.createElement("div");
+ contentElement.classList.add("content");
+
+ contentElement.innerHTML = content;
+
+ const closeElement = document.createElement("a");
+ closeElement.classList.add("close");
+ closeElement.textContent = "x";
+ closeElement.href = "#";
+
+ closeElement.addEventListener("click", e => {
+     e.preventDefault();
+     body.removeChild(overlayElement);
+ });
+
+
+ overlayElement.appendChild(containerElement);
+ containerElement.appendChild(closeElement);
+ containerElement.appendChild(contentElement);
+
+ return  overlayElement;
+
+}  
+
+// ннн
+
+/*  if (e.target == overlayElement ){
+        closeElement.click();
+     }
+      */
+
+// #1 Создание и работа с DOM
+
+const quantitySelector = document.querySelector(".quantity-selector");
+const colorSelector = document.querySelector(".color-selector");
+const blocksContainer = document.querySelector(".blocks");
+
+const createMarkup = quantity => {
+    let markup = "";
+
+    for (let i = 0; i < quantity; i++) {
+        const block = document.createElement("div");
+        block.className = "item";
+        block.innerText = i + 1;
+  
+        markup += block.outerHTML;
+    }
+    return markup;
+};
+
+quantitySelector.addEventListener("change", e => {
+  const quantity = e.target.value;
+  const markup = createMarkup(quantity);
+ 
+ blocksContainer.innerHTML = markup;
+});
+
+const colorTheBlock = (block, color) => {
+    block.style.backgroundColor = color;
+};
+
+let changed = false;
+
+
+
+colorSelector.addEventListener("change", e => {
+    const color = e.target.value;
+    const items = blocksContainer.querySelectorAll(".item");
+
+    changed = !changed;
+
+    for (let i = 0; i < items.length; i++) {
+        const currentBlock = items[i];
+        const blockNumber = i + 1;
+        let colorToApply = "";
+
+        if (changed) {
+            colorToApply = blockNumber % 2 != 0  ? color : "#fff";
+           
+        } else {
+            colorToApply = blockNumber % 2 == 0 ? color : "#fff";    
+        } 
+
+        colorTheBlock(currentBlock, colorToApply); 
+    }
+});
+
